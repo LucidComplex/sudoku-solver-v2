@@ -29,10 +29,8 @@ public class SudokuPuzzle {
         // calculate horizontal
         for (int i = 0; i < dimension; i++) {
             String cut = filled.substring(i * dimension, i * dimension + dimension);
-            System.out.println(cut);
             fitness += countMissing(cut);
         }
-        System.out.println();
 
         // calculate vertical
         for (int i = 0; i < dimension; i++) {
@@ -45,7 +43,7 @@ public class SudokuPuzzle {
             String cut = getBlock(filled, i);
             fitness += countMissing(cut);
         }
-        System.out.println(fitness);
+        individual.setFitness(fitness);
         return fitness;
     }
 
@@ -57,18 +55,26 @@ public class SudokuPuzzle {
         }
     }
 
+    private int getC() {
+        if (dimension == 8 || dimension == 6) {
+            return 4;
+        } else {
+            return dimension;
+        }
+    }
+
     private String getBlock(String filled, int index) {
         StringBuilder builder = new StringBuilder();
         int[] blockDimension = getBlockDimension();
+        int c = getC();
         int quotient = index / blockDimension[0];
-        index = dimension * quotient + index % blockDimension[0];
+        index = c * quotient + index % blockDimension[0];
         String cut = filled.substring(index * blockDimension[1], index * blockDimension[1] + blockDimension[1]);
         builder.append(cut);
         for (int i = 1; i < blockDimension[0]; i++) {
             cut = filled.substring((index * blockDimension[1]) + (i * dimension), (index * blockDimension[1] + blockDimension[1]) + (i * dimension));
             builder.append(cut);
         }
-        System.out.println(builder);
         return builder.toString();
     }
 
@@ -93,7 +99,7 @@ public class SudokuPuzzle {
 
     private String fillPuzzle(Individual individual) {
         String filled = puzzle;
-        for (char c : individual.chromosome.toCharArray()) {
+        for (char c : individual.getChromosome().toCharArray()) {
             filled = filled.replaceFirst("0", String.valueOf(c));
         }
         return filled;
