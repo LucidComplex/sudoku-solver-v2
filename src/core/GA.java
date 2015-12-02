@@ -29,7 +29,7 @@ public class GA {
     private Individual best;
 
     public GA() {
-        populationSize = 15000;
+        populationSize = 2500;
         maxGenerations = 10000;
         survivalRate = 0.01f;
         recombinationProb= 0.90f;
@@ -204,7 +204,7 @@ public class GA {
             if (best.getFitness() > i.getFitness()) {
                 best = i;
             }
-            solutionFound = fitness == 0;
+            solutionFound = best.getFitness() == 0;
             total += puzzle.calculateFitness(i);
         }
         return total;
