@@ -29,11 +29,11 @@ public class GA {
     private Individual best;
 
     public GA() {
-        populationSize = 100;
+        populationSize = 1000;
         maxGenerations = 3000000;
         survivalRate = 0.2f;
         recombinationProb= 1f;
-        mutationProb = 0f;
+        mutationProb = 1f;
         restarts = 0;
         generations = 0;
         survivorSelector = new ElitismSurvivorSelector(survivalRate);
@@ -106,9 +106,9 @@ public class GA {
             population.addAll(cloneIndividualList(children));
 
             population = mutator.mutate(population);
-            for (Individual i: population){
-                System.out.println(i.getChromosome());
-            }
+//            for (Individual i: population){
+//                System.out.println(i.getChromosome());
+//            }
         }
         generations = iterations;
     }
