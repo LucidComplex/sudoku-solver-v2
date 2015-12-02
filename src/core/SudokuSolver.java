@@ -10,7 +10,7 @@ public class SudokuSolver {
 
     public static void main(String[] args) throws IOException {
         if (args.length == 0) {
-            System.err.print("Missing filename.\nUsage:\n\tjava SudokuSolver <filename>\n");
+            System.err.print("Missing filename.\nUsage: java -jar SudokuSolver.jar <filename>\n");
             System.exit(1);
         }
 

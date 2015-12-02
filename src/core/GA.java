@@ -120,7 +120,8 @@ public class GA {
 
     public void saveSolution(long runningTime, String filename){
 
-        String file_name = filename.split("\\s.\\s")[0];
+        File file = new File(filename);
+        String file_name = file.getName();
         file_name += ".out";
         PrintWriter writer = null;
         try {
