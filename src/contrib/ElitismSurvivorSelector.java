@@ -30,4 +30,8 @@ public class ElitismSurvivorSelector implements SurvivorSelector {
         return survivors;
     }
 
+    @Override
+    public String toString() {
+        return "Elitism Survivor Selector";
+    }
 }

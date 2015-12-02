@@ -13,8 +13,12 @@ public class SudokuSolver {
             System.err.print("Missing filename.\nUsage:\n\tjava SudokuSolver <filename>");
         }
 
+        long start = System.currentTimeMillis();
         GA solver = new GA(args[0]);
+
         solver.solve();
+        long end = System.currentTimeMillis();
+        solver.saveSolution(end - start, args[0]);
     }
 
 }

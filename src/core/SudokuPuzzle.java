@@ -1,5 +1,7 @@
 package core;
 
+import java.util.StringJoiner;
+
 /**
  * Created by tan on 12/1/15.
  */
@@ -97,12 +99,23 @@ public class SudokuPuzzle {
         return miss;
     }
 
-    private String fillPuzzle(Individual individual) {
+    public String fillPuzzle(Individual individual) {
         String filled = puzzle;
         for (char c : individual.getChromosome().toCharArray()) {
             filled = filled.replaceFirst("0", String.valueOf(c));
         }
         return filled;
+    }
+
+    public String showPuzzle(Individual individual) {
+        String filled = fillPuzzle(individual);
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < filled.length(); i++) {
+            String cut = filled.substring(i * dimension, i * dimension + dimension);
+            builder.append(cut);
+            builder.insert(builder.length() - 2, " ");
+        }
+        return builder.toString();
     }
 
 }

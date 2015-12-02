@@ -28,8 +28,8 @@ public class NPointRecombinator implements Recombinator {
             builders[0].append(parents.get((i + 1) % 2).getChromosome().substring(points[i], points[i + 1]));
             builders[1].append(parents.get(i % 2).getChromosome().substring(points[i], points[i + 1]));
         }
-        builders[0].append(parents.get((i + 1) % 2).getChromosome().substring(points[i]));
-        builders[1].append(parents.get(i % 2).getChromosome().substring(points[i]));
+        builders[1].append(parents.get((i + 1) % 2).getChromosome().substring(points[i]));
+        builders[0].append(parents.get(i % 2).getChromosome().substring(points[i]));
 
         List<Individual> children = new ArrayList<>();
         for (StringBuilder builder : builders) {
@@ -46,5 +46,9 @@ public class NPointRecombinator implements Recombinator {
             points[i] = points[i - 1] + (int) (Math.random() * (geneSize - points[i - 1]));
         }
         return points;
+    }
+
+    public String toString(){
+        return "N Point Recombinator";
     }
 }

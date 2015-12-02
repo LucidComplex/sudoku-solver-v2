@@ -5,40 +5,43 @@ import contrib.NPointRecombinator;
 import contrib.ResetMutator;
 import contrib.TournamentParentSelector;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by tan on 12/1/15.
  */
 public class GA {
-    private int populationSize;
-    private int maxGenerations;
-    private float survivalRate;
-    private float recombinationProb;
-    private float mutationProb;
-    private SurvivorSelector survivorSelector;
-    private ParentSelector parentSelector;
-    private Recombinator recombinator;
-    private Mutator mutator;
+    public int restarts;
+    public int populationSize;
+    public int maxGenerations;
+    public float survivalRate;
+    public float recombinationProb;
+    public float mutationProb;
+    public SurvivorSelector survivorSelector;
+    public ParentSelector parentSelector;
+    public Recombinator recombinator;
+    public Mutator mutator;
 
-    private SudokuPuzzle puzzle;
+   public SudokuPuzzle puzzle;
     boolean solutionFound;
-    private Individual solution;
+    public int generations;
+    private Individual best;
 
     public GA() {
         populationSize = 10;
         maxGenerations = 3000000;
-        survivalRate = 0.1f;
+        survivalRate = 0.2f;
         recombinationProb= 1f;
-        mutationProb = 0.18f;
+        mutationProb = 1f;
+        restarts = 0;
+        generations = 0;
         survivorSelector = new ElitismSurvivorSelector(survivalRate);
         parentSelector = new TournamentParentSelector(3);
-        recombinator = new NPointRecombinator(3);
+        recombinator = new NPointRecombinator(2);
     }
 
     public GA(String filename) throws IOException {
@@ -70,14 +73,29 @@ public class GA {
         // initially populate
         populate(population);
         int iterations = 0;
+        int overallFitness = 0;
+        int count = 0;
         while (!solutionFound && iterations < maxGenerations) {
-            System.out.println("Iteration " + ++iterations);
+
             // update and print fitness
             printAverageFitness(population);
+            System.out.println("Iteration " + ++iterations);
             if (solutionFound) {
                 System.out.println("Solution Found");
-                System.out.println(solution.getChromosome());
+                System.out.println(best.getChromosome());
             }
+
+
+            if (overallFitness == calculateFitness(population)) {
+                count++;
+            }
+            if (count > 20) {
+                populate(population);
+                restarts++;
+                count = 0;
+            }
+            overallFitness = calculateFitness(population);
+
 
             // select survivors
             List<Individual> survivors = survivorSelector.select(population);
@@ -91,6 +109,46 @@ public class GA {
             population.addAll(cloneIndividualList(children));
 
             population = mutator.mutate(population);
+        }
+        generations = iterations;
+    }
+
+
+    public void saveSolution(long runningTime, String filename){
+
+        String file_name = filename.split("\\s.\\s")[0];
+        file_name += ".out";
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(file_name, "UTF-8");
+            writer.println("GA PARAMETERS");
+            writer.println("Representation: " + "Integer");
+            writer.println("Population size: " + populationSize);
+            writer.println("Max Generation: " + maxGenerations);
+            writer.println("Parent Selection: " + parentSelector.toString());
+            writer.println("Survivor Selection: " + survivorSelector.toString());
+            writer.println("Recombination Method: " + recombinator.toString());
+            writer.println("Mutation Method: " + mutator.toString());
+            writer.println("Recombination Probabilty: " + recombinationProb);
+            writer.println("Mutation Probability: " + mutationProb);
+            writer.println("Survival Rate: " + survivalRate);
+            writer.println("Generations: " + generations);
+            writer.println("Running time: "+ runningTime + " ms");
+            writer.println("Restarts: " + restarts);
+            writer.println("Best individual (Phenotype): ");
+            writer.println(best.getChromosome()+"\n");
+            writer.println(puzzle.fillPuzzle(best));
+            if(solutionFound)
+                writer.println("The sudoku puzzle was solved");
+            else
+                writer.println("The puzzle wasn't solved. Either the given"
+                        + "\n puzzle was wrongly configured or the GA "
+                        + "has limitations");
+            writer.close();
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+            Logger.getLogger(GA.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            writer.close();
         }
 
     }
@@ -141,7 +199,7 @@ public class GA {
             int fitness = puzzle.calculateFitness(i);
             if (fitness == 0) {
                 solutionFound = true;
-                solution = i;
+                best = i;
             }
             total += puzzle.calculateFitness(i);
         }

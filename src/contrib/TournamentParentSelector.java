@@ -26,7 +26,9 @@ public class TournamentParentSelector implements ParentSelector {
             List<Individual> participants = selectParticipants(population);
             // take the best
             Collections.sort(participants, new FitnessComparator());
-            selected.add(participants.get(0).copy());
+            Individual x = participants.remove(0);
+            selected.add(x.copy());
+            population.remove(x);
         }
 
         return selected;
@@ -39,5 +41,9 @@ public class TournamentParentSelector implements ParentSelector {
             participants.add(population.get(randomIndex).copy());
         }
         return participants;
+    }
+
+    public String toString(){
+        return "Tournament Parent Selector";
     }
 }

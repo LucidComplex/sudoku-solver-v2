@@ -33,7 +33,7 @@ public class ResetMutator implements Mutator {
     private Individual mutateIndividual(Individual i) {
         StringBuilder builder = new StringBuilder();
         for (char c : i.getChromosome().toCharArray()) {
-            if (0.5 >= Math.random()) {
+            if (0.01 >= Math.random()) {
                 char temp = (char) ('1' + (int) Math.round(Math.random() * (dimension - 1)));
                 builder.append(temp);
             } else {
@@ -43,5 +43,7 @@ public class ResetMutator implements Mutator {
         return new Individual(builder.toString());
     }
 
-
+    public String toString(){
+        return "Reset Mutator";
+    }
 }
