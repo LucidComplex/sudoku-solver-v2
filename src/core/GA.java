@@ -38,7 +38,7 @@ public class GA {
         generations = 0;
         survivorSelector = new ElitismSurvivorSelector(survivalRate);
         parentSelector = new TournamentParentSelector(3);
-        recombinator = new NPointRecombinator(2);
+        recombinator = new UniformRecombinator();
     }
 
     public GA(String filename) throws IOException {
@@ -70,8 +70,8 @@ public class GA {
         // initially populate
         populate(population);
         int iterations = 0;
-        int overallFitness = 0;
         int count = 0;
+        int fitness = 0;
         while (!solutionFound && iterations < maxGenerations) {
 
             // update and print fitness
@@ -82,16 +82,19 @@ public class GA {
                 System.out.println(best.getChromosome());
             }
 
-
-            if (overallFitness == calculateFitness(population)) {
+            int thisFitness = (calculateFitness(population) / populationSize);
+            int delta = Math.abs(thisFitness - fitness);
+            if (delta >= 2) {
+                fitness = thisFitness;
+                count = 0;
+            } else {
                 count++;
             }
-            if (count > 20) {
+            if (count > 500) {
                 populate(population);
                 restarts++;
                 count = 0;
             }
-            overallFitness = calculateFitness(population);
 
 
             // select survivors
@@ -106,9 +109,7 @@ public class GA {
             population.addAll(cloneIndividualList(children));
 
             population = mutator.mutate(population);
-//            for (Individual i: population){
-//                System.out.println(i.getChromosome());
-//            }
+
         }
         generations = iterations;
     }

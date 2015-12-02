@@ -9,8 +9,13 @@ Mutation Method: Reset Mutator
 Recombination Probabilty: 1.0
 Mutation Probability: 0.0
 Survival Rate: 0.2
+<<<<<<< HEAD
 Generations: 40
 Running time: 3654 ms
+=======
+Generations: 31
+Running time: 3163 ms
+>>>>>>> 0fe533b2a399e29648c8f97212bc612d98b2e337
 Restarts: 0
 Best individual (Phenotype): 
 534211266132251636561543
