@@ -4,13 +4,13 @@ Population size: 1000
 Max Generation: 3000000
 Parent Selection: Tournament Parent Selector
 Survivor Selection: Elitism Survivor Selector
-Recombination Method: N Point Recombinator
+Recombination Method: Uniform Crossover
 Mutation Method: Reset Mutator
 Recombination Probabilty: 1.0
 Mutation Probability: 1.0
 Survival Rate: 0.2
-Generations: 40
-Running time: 3847 ms
+Generations: 31
+Running time: 3163 ms
 Restarts: 0
 Best individual (Phenotype): 
 534211266132251636561543
