@@ -29,11 +29,11 @@ public class GA {
     private Individual best;
 
     public GA() {
-        populationSize = 1000;
-        maxGenerations = 3000000;
-        survivalRate = 0.2f;
-        recombinationProb= 1f;
-        mutationProb = 1f;
+        populationSize = 2500;
+        maxGenerations = 3000;
+        survivalRate = 0.01f;
+        recombinationProb= 0.90f;
+        mutationProb = 0.02f;
         restarts = 0;
         generations = 0;
         survivorSelector = new ElitismSurvivorSelector(survivalRate);
@@ -73,9 +73,9 @@ public class GA {
         int count = 0;
         int fitness = 0;
         while (!solutionFound && iterations < maxGenerations) {
-
             // update and print fitness
             printAverageFitness(population);
+
             System.out.println("Iteration " + ++iterations);
             if (solutionFound) {
                 System.out.println("Solution Found");
@@ -84,13 +84,13 @@ public class GA {
 
             int thisFitness = (calculateFitness(population) / populationSize);
             int delta = Math.abs(thisFitness - fitness);
-            if (delta >= 2) {
+            if (delta >= 1.5) {
                 fitness = thisFitness;
                 count = 0;
             } else {
                 count++;
             }
-            if (count > 500) {
+            if (count > 60) {
                 populate(population);
                 restarts++;
                 count = 0;
@@ -208,6 +208,7 @@ public class GA {
     }
 
     private void populate(List<Individual> population){
+        population.clear();
         for(int i = 0; i < populationSize; i++){
             population.add(Individual.random(puzzle.getIndividualLength(), puzzle.dimension));
         }

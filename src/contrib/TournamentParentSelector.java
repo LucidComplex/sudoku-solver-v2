@@ -28,7 +28,6 @@ public class TournamentParentSelector implements ParentSelector {
             Collections.sort(participants, new FitnessComparator());
             Individual x = participants.remove(0);
             selected.add(x.copy());
-            population.remove(x);
         }
 
         return selected;
