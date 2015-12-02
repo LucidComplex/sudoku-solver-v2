@@ -1,9 +1,6 @@
 package core;
 
-import contrib.ElitismSurvivorSelector;
-import contrib.NPointRecombinator;
-import contrib.ResetMutator;
-import contrib.TournamentParentSelector;
+import contrib.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,11 +29,11 @@ public class GA {
     private Individual best;
 
     public GA() {
-        populationSize = 10;
+        populationSize = 100;
         maxGenerations = 3000000;
         survivalRate = 0.2f;
         recombinationProb= 1f;
-        mutationProb = 1f;
+        mutationProb = 0f;
         restarts = 0;
         generations = 0;
         survivorSelector = new ElitismSurvivorSelector(survivalRate);
@@ -109,6 +106,9 @@ public class GA {
             population.addAll(cloneIndividualList(children));
 
             population = mutator.mutate(population);
+            for (Individual i: population){
+                System.out.println(i.getChromosome());
+            }
         }
         generations = iterations;
     }

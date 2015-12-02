@@ -1,17 +1,17 @@
 GA PARAMETERS
 Representation: Integer
-Population size: 10
+Population size: 1000
 Max Generation: 3000000
 Parent Selection: Tournament Parent Selector
 Survivor Selection: Elitism Survivor Selector
-Recombination Method: N Point Recombinator
+Recombination Method: contrib.UniformRecombinator@6d6f6e28
 Mutation Method: Reset Mutator
 Recombination Probabilty: 1.0
 Mutation Probability: 1.0
 Survival Rate: 0.2
-Generations: 339991
-Running time: 1045918 ms
-Restarts: 991
+Generations: 346
+Running time: 41291 ms
+Restarts: 0
 Best individual (Phenotype): 
 9817726984315286467928345261574895471981346756513
 

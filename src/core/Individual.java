@@ -44,4 +44,14 @@ public class Individual {
     public Individual copy() {
         return new Individual(this);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.hashCode() == obj.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return chromosome.hashCode();
+    }
 }
