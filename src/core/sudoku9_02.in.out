@@ -1,0 +1,29 @@
+GA PARAMETERS
+Representation: Integer
+Population size: 5000
+Max Generation: 10000
+Parent Selection: Tournament Parent Selector
+Survivor Selection: Elitism Survivor Selector
+Recombination Method: Uniform Crossover
+Mutation Method: Reset Mutator
+Recombination Probabilty: 0.9
+Mutation Probability: 0.02
+Survival Rate: 0.1
+Generations: 10000
+Running time: 4346883 ms
+Restarts: 78
+Best individual (Phenotype): 
+451265738246124375892718568573395941785436491296245317978
+
+4 8 5 1 9 2 6 3 5
+9 7 3 6 8 5 2 4 1
+6 1 2 4 3 7 5 8 9
+2 4 7 9 1 6 8 2 5
+1 6 8 5 7 3 3 9 4
+5 3 9 2 4 8 1 6 7
+8 5 4 3 6 4 9 1 2
+7 9 6 8 2 1 4 5 3
+3 2 1 7 5 9 7 6 8
+
+The puzzle wasn't solved. Either the given
+ puzzle was wrongly configured or the GA has limitations

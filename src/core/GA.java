@@ -29,8 +29,8 @@ public class GA {
     private Individual best;
 
     public GA() {
-        populationSize = 2500;
-        maxGenerations = 3000;
+        populationSize = 15000;
+        maxGenerations = 10000;
         survivalRate = 0.01f;
         recombinationProb= 0.90f;
         mutationProb = 0.02f;
@@ -72,9 +72,12 @@ public class GA {
         int iterations = 0;
         int count = 0;
         int fitness = 0;
+        best = population.get(0);
+        System.out.println(puzzle.getIndividualLength());
         while (!solutionFound && iterations < maxGenerations) {
             // update and print fitness
             printAverageFitness(population);
+            System.out.println("Min: " + best.getFitness());
 
             System.out.println("Iteration " + ++iterations);
             if (solutionFound) {
@@ -90,7 +93,7 @@ public class GA {
             } else {
                 count++;
             }
-            if (count > 60) {
+            if (count > 200) {
                 populate(population);
                 restarts++;
                 count = 0;
@@ -138,7 +141,7 @@ public class GA {
             writer.println("Restarts: " + restarts);
             writer.println("Best individual (Phenotype): ");
             writer.println(best.getChromosome()+"\n");
-            writer.println(puzzle.fillPuzzle(best));
+            writer.println(puzzle.showPuzzle(best));
             if(solutionFound)
                 writer.println("The sudoku puzzle was solved");
             else
@@ -198,10 +201,10 @@ public class GA {
         int total = 0;
         for (Individual i : population) {
             int fitness = puzzle.calculateFitness(i);
-            if (fitness == 0) {
-                solutionFound = true;
+            if (best.getFitness() > i.getFitness()) {
                 best = i;
             }
+            solutionFound = fitness == 0;
             total += puzzle.calculateFitness(i);
         }
         return total;

@@ -7,22 +7,22 @@ Survivor Selection: Elitism Survivor Selector
 Recombination Method: Uniform Crossover
 Mutation Method: Reset Mutator
 Recombination Probabilty: 0.9
-Mutation Probability: 0.02
+Mutation Probability: 0.0
 Survival Rate: 0.01
-Generations: 39
-Running time: 11296 ms
+Generations: 54
+Running time: 10735 ms
 Restarts: 0
 Best individual (Phenotype): 
-9817726984315286467928345261574895471981346756513
+8739539486715982785123137955493612768165482943856
 
-6 9 8 1 3 4 7 5 2
-7 2 5 6 9 8 3 4 1
-3 4 1 5 2 7 8 9 6
-4 6 7 8 1 9 5 2 3
-9 8 3 4 5 2 6 1 7
-1 5 2 7 6 3 4 8 9
-5 3 4 2 7 1 9 6 8
-8 1 9 3 4 6 2 7 5
-2 7 6 9 8 5 1 3 4
+6 8 4 1 2 7 3 9 5
+3 2 9 4 8 5 6 7 1
+7 5 1 3 6 9 8 4 2
+9 7 6 8 5 1 4 2 3
+8 1 3 2 7 4 9 5 6
+5 4 2 9 3 6 7 1 8
+2 9 7 6 1 3 5 8 4
+1 6 5 7 4 8 2 3 9
+4 3 8 5 9 2 1 6 7
 
 The sudoku puzzle was solved

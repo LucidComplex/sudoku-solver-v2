@@ -110,12 +110,20 @@ public class SudokuPuzzle {
     public String showPuzzle(Individual individual) {
         String filled = fillPuzzle(individual);
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < filled.length(); i++) {
-            String cut = filled.substring(i * dimension, i * dimension + dimension);
-            builder.append(cut);
-            builder.insert(builder.length() - 2, " ");
+        StringBuilder spaceBuilder;
+        for (int i = 0; i < dimension; i++) {
+            spaceBuilder = new StringBuilder(filled.substring(i * dimension, i * dimension + dimension));
+            padString(spaceBuilder);
+            builder.append(spaceBuilder);
+            builder.append("\n");
         }
         return builder.toString();
+    }
+
+    private void padString(StringBuilder builder) {
+        for (int i = 1; i < builder.length(); i += 2) {
+            builder.insert(i, " ");
+        }
     }
 
 }
