@@ -11,7 +11,7 @@ Then, package into a jar with:
 
 ```
 cd src
-jar SudokuSolver.jar core.SudokuSolver -C src/ src/core/*.class src/contrib/*.class
+jar SudokuSolver.jar core.SudokuSolver core/*.class contrib/*.class
 ```
 
 Run the jar file with:
